@@ -1,0 +1,49 @@
+//var theModule = require("TestModule");
+//return theModule.TestVar;
+//return theModule.TestFunc();
+
+//return "Hi";
+
+response.setHeader("Cache-Control", "public, max-age=120");
+//response.setHeader("ETag", "2");
+response.setHeader("Content-Type", "text/html; charset=utf-8");
+response.addHeaders(configuration.crossDomainHeaders);
+
+var strTime = Date().toString();
+//var msgExtra = JSON.stringify(configuration.crossDomainHeaders);
+var msgExtra = JSON.stringify(configuration);
+var msg = "Hello QQ! " + msgExtra + " --" + strTime + "--";
+var result = publish("qq", msg);
+
+//var theFaviconURL = "https://png.icons8.com/dotty/50/000000/saving-book.png";
+var theFaviconURL = "https://png.icons8.com/windows/50/000000/cool.png";
+//var theFaviconURL = "favicon.png";
+
+var theTextHtml = "<!DOCTYPE html>"
++ "<HTML>"
++ "<HEAD>"
++ "<link rel=\"shortcut icon\" href=\"" + theFaviconURL + "\" type=\"image/png\"></LINK>"
++ "</HEAD>"
++ "<BODY>\n"
++ "<SCRIPT SRC=\"TestJS_ByFile.js\"></SCRIPT>\n"
++ "<SCRIPT SRC=\"TestJS_ByScript.js\"></SCRIPT>\n"
++ "<SCRIPT SRC=\"https://www.googletagmanager.com/gtm.js?id=GTM-K9ZVQ58\"></SCRIPT>\n"
++ "<a href=\"https://icons8.com\">Icon pack by Icons8</a>\n"
++ "</BODY>"
++ "</HTML>"
+;
+
+//response.write("Good!");
+response.write(theTextHtml);
+response.close();
+
+return "good";
+
+
+
+
+
+
+
+
+
