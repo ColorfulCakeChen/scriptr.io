@@ -1,0 +1,7 @@
+var MaiCoinMaxAPI = require("modules/trader/MaiCoinMaxAPI.js");
+
+var membersAccountsCurrency_TWD = MaiCoinMaxAPI.membersAccountsCurrency_TWD_get();
+return membersAccountsCurrency_TWD;
+
+var tickers_BTCTWD = MaiCoinMaxAPI.tickers_BTCTWD_get();
+return tickers_BTCTWD;
