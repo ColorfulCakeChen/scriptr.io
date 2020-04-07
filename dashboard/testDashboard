@@ -48,7 +48,7 @@
    	 	wsClientProvider.setBaseUrl("wss://" + window.location.host + "/");   	 
         wsClientProvider.setToken($.urlParam("auth_token"));
         wsClientProvider.setPublishChannel("requestChannel");
-        wsClientProvider.setSubscribeChannel("responseChannel");
+        wsClientProvider.setSubscribeChannel("dashboardChannel");
     }];
 
     var httpsConfig = ["httpClientProvider",function (httpClientProvider) {
@@ -98,6 +98,9 @@
        
         vm.init = function() {
         }
+                vm.gaugeFormatData1 = function(data){
+                  return data;
+                }
      });
         	
 })();
@@ -108,6 +111,20 @@
       <div ng-controller="RootCtrl as vm" ng-init="vm.init();"> 
 		<div gridster="vm.gridsterOptions">
           <ul>
+                <li class="myItem" gridster-item='{sizeX: 1, sizeY: 1, col: 0 , row: 0 }'>
+                    <div class="box">
+                        <div class="box-content">
+                          <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="Gauge" class="box-label">Gauge</div>
+                          <div  style="height: calc(100% - 30px)" > <scriptr-gauge
+										transport='wss'
+										boxLabel='Gauge'
+										msg-tag='gauge'
+										api='UIComponents/dashboard/frontend/examples/gauge/getGaugeVal'
+                                  		on-format-data='vm.gaugeFormatData1'
+                           ></scriptr-gauge> </div>
+                        </div>
+                    </div>
+                </li>
           </ul>
         </div>
       </div>
