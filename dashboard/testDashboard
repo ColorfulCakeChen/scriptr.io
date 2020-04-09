@@ -98,7 +98,7 @@
        
         vm.init = function() {
         }
-                vm.gaugeFormatData1 = function(data){
+                vm.gaugeFormatData3 = function(data){
                   return data;
                 }
      });
@@ -119,8 +119,41 @@
 										transport='wss'
 										boxLabel='Gauge'
 										msg-tag='gauge'
-										api='UIComponents/dashboard/frontend/examples/gauge/getGaugeVal'
-                                  		on-format-data='vm.gaugeFormatData1'
+										api=''
+										value-font-color='#999'
+										min='0'
+										max='100'
+										hide-min-max='false'
+										hide-value='false'
+										show-inner-shadow='false'
+										custom-sectors='{"percents":"false","ranges":[{}]}'
+										shadow-size='5'
+										shadow-opacity='0.2'
+										start-animation-type='linear'
+										refresh-animation-type='linear'
+										value-font-family='Source Sans Pro'
+										value-min-font-size='12'
+										label-min-font-size='12'
+										min-label-min-font-size='12'
+										max-label-min-font-size='12'
+										gauge-width-scale='1'
+										shadow-vertical-offset='3'
+										level-colors='["#a9d70b","#f9c802","#ff0000"]'
+										relative-gauge-size='true'
+										no-gradient='false'
+										start-animation-time='700'
+										refresh-animation-time='700'
+										donut='false'
+										donut-start-angle='90'
+										reverse='false'
+										decimals='0'
+										format-number='false'
+										human-friendly='false'
+										human-friendly-decimal='0'
+										pointer='false'
+										counter='false'
+										http-method='GET'
+                                  		on-format-data='vm.gaugeFormatData3'
                            ></scriptr-gauge> </div>
                         </div>
                     </div>
