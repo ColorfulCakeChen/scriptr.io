@@ -80,7 +80,7 @@ function HMAC_SHA256_HTTP_Request( method, body, keys ) {
         // Convert number array to unsigned integer, and then convert to HEX, and then concate to one string.
         var signature = (digestNumberArray.words.map(function (x) { return (x>>>0).toString(16); })).join("");
         //return signature;
-        return { body: requestObject.bodyString, payload: payload, digestNumberArray: digestNumberArray, signature: signature };
+        //return { body: requestObject.bodyString, payload: payload, digestNumberArray: digestNumberArray, signature: signature };
 
     	requestObject.headers = {
             'X-MAX-ACCESSKEY': keys.a_key,
@@ -109,6 +109,8 @@ function tickers_PathMarket_get( path_market ) {
       path: API_PATH_TICKERS + "/" + path_market,
       nonce: Date.now()
     };
+    //var keys = A_S_Key_get_FromStore();
+    //var responseBody = HMAC_SHA256_HTTP_Request( METHOD_GET, body, keys );
     var responseBody = HMAC_SHA256_HTTP_Request( METHOD_GET, body );
     return responseBody;
 }
