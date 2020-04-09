@@ -1,4 +1,6 @@
-var crypto = require("modules/crypto/sjcl.js"); // Stanford Javascript Crypto Library (https://github.com/bitwiseshiftleft/sjcl/)
+//!!! (2020/04/09 Removed) by Using Stanford Javascript Crypto Library 
+//var crypto = require("modules/crypto/sjcl.js"); // Stanford Javascript Crypto Library (https://github.com/bitwiseshiftleft/sjcl/)
+var crypto = require("modules/crypto/CryptoJS_HmacSHA256.js"); // CryptoJS rollups (https://github.com/sytelus/CryptoJS/blob/master/rollups/hmac-sha256.js)
 var defaultStoreDocuments = require("document");
 var http = require("http");
 
@@ -56,20 +58,29 @@ function HMAC_SHA256_HTTP_Request( method, body, keys ) {
         method: method,
         bodyString: JSON.stringify(body)
     };
+    //return requestObject.bodyString;
 
     // If there are keys, sign it.
     if (keys && keys.s_key && keys.a_key) {
         var payload = btoa(requestObject.bodyString); // to Base64.
         //return payload;
 
+/*!!! (2020/04/09 Removed) by Using Stanford Javascript Crypto Library 
         var hmac = new crypto.sjcl.misc.hmac(keys.s_key, crypto.sjcl.hash.sha256);
         hmac.update(payload);
         var digestNumberArray = hmac.digest();
         //return digestNumberArray;
 
         // Convert number array to unsigned integer, and then convert to HEX, and then concate to one string.
-        var signature = (digestNumberArray.map(function (x) { return (x>>>0).toString(16); })).join("");
+        var signature = (digestNumberArray.map(function (x) { return (x>>>0).toString(16); })).join(" ");
+*/        
+        var digestNumberArray = crypto.CryptoJS.HmacSHA256(payload, keys.s_key);
+        //return { body: body, payload: payload, digestNumberArray: digestNumberArray };
+
+        // Convert number array to unsigned integer, and then convert to HEX, and then concate to one string.
+        var signature = (digestNumberArray.words.map(function (x) { return (x>>>0).toString(16); })).join("");
         //return signature;
+        return { body: requestObject.bodyString, payload: payload, digestNumberArray: digestNumberArray, signature: signature };
 
     	requestObject.headers = {
             'X-MAX-ACCESSKEY': keys.a_key,
@@ -129,11 +140,7 @@ function membersAccounts_PathCurrency_get( path_currency ) {
       path: API_PATH_MEMBERS_ACCOUNTS + "/" + path_currency,
       nonce: Date.now()
     };
-
-    //var secret_key = "1234";
-    //var access_key = "5678";
     var keys = A_S_Key_get_FromStore();
-
     var responseBody = HMAC_SHA256_HTTP_Request( METHOD_GET, body, keys );
     return responseBody;
 }

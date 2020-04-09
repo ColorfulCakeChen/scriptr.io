@@ -1,3 +1,30 @@
+/*
+//var crypto = require("modules/crypto/sjcl.js"); // Stanford Javascript Crypto Library (https://github.com/bitwiseshiftleft/sjcl/)
+var crypto = require("modules/crypto/CryptoJS_HmacSHA256.js"); // CryptoJS rollups (https://github.com/sytelus/CryptoJS/blob/master/rollups/hmac-sha256.js)
+
+var body = "ABC";
+var payload = btoa(body); // to Base64.
+var keys = { s_key: "12345" };
+
+/*!!!
+var hmac = new crypto.sjcl.misc.hmac(keys.s_key, crypto.sjcl.hash.sha256);
+hmac.update(payload);
+var digestNumberArray = hmac.digest();
+
+// Convert number array to unsigned integer, and then convert to HEX, and then concate to one string.
+var signature = (digestNumberArray.map(function (x) { return (x>>>0).toString(16); })).join(" ");
+* /
+
+var digestNumberArray = crypto.CryptoJS.HmacSHA256(payload, keys.s_key);
+//return { body: body, payload: payload, digestNumberArray: digestNumberArray };
+
+// Convert number array to unsigned integer, and then convert to HEX, and then concate to one string.
+var signature = (digestNumberArray.words.map(function (x) { return (x>>>0).toString(16); })).join("");
+
+return { body: body, payload: payload, digestNumberArray: digestNumberArray, signature: signature };
+*/
+
+
 var MaiCoinMaxAPI = require("modules/trader/MaiCoinMaxAPI.js");
 
 //var membersAccounts_TWD = MaiCoinMaxAPI.membersAccounts_TWD_get();
