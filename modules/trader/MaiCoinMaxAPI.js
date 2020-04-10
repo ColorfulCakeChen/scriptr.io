@@ -62,12 +62,16 @@ var httpRequester = (function () {
      * @return {Object} The response.body, if success. Return null, otherwise.
      */
 	var theRequester = function HMAC_SHA256_HTTP_Request( method, body, isPrivate ) {
+
+        var fullPath = API_ROOT + body.path;
+        //body.path = fullPath;
+        //delete body.path;
+
         var bodyString = JSON.stringify(body);
-        ////bodyString = bodyString.replace(/"/g,"'");
         //return bodyString;
 
         var requestObject = {
-            url: API_ROOT + body.path,
+            url: fullPath,
     //      "params" : {
     //      },
             method: method,
