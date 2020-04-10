@@ -24,13 +24,12 @@ var signature = (digestNumberArray.words.map(function (x) { return (x>>>0).toStr
 return { body: body, payload: payload, digestNumberArray: digestNumberArray, signature: signature };
 */
 
-
 var MaiCoinMaxAPI = require("modules/trader/MaiCoinMaxAPI.js");
 
-var membersAccounts_TWD = MaiCoinMaxAPI.membersAccounts_TWD_get();
-return membersAccounts_TWD;
-//var membersAccounts = MaiCoinMaxAPI.membersAccounts_get();
-//return membersAccounts;
+//var membersAccounts_TWD = MaiCoinMaxAPI.membersAccounts_TWD_get();
+//return membersAccounts_TWD;
+var membersAccounts = MaiCoinMaxAPI.membersAccounts_get();
+return membersAccounts;
 
 var tickers_BTCTWD = MaiCoinMaxAPI.tickers_BTCTWD_get();
 return tickers_BTCTWD;
